@@ -4,32 +4,65 @@ import document from "./assets/Document.png";
 import folder from "./assets/Folders.png";
 import Button from "../../ui/Button/Button";
 import Checkbox from "../../ui/Checkbox/checkbox";
-const Search = () => {
- const params = [ 
-  {
-    text : 'Признак максимальной полноты',
-    id : 1
-  }, {
-    text : 'Упоминания в бизнес-контексте',
-    id : 2
-  }, {
-    text : 'Главная роль в публикации',
-    id : 3
-  }, {
-    text : 'Публикации только с риск-факторами',
-    id : 4
-  }, {
-    text : 'Включать технические новости рынков',
-    id : 5
-  }, {
-    text : 'Включать анонсы и календари',
-    id : 6
-  }, {
-    text : 'Включать сводки новостей',
-    id : 7
-  },  
- ]
+import { useState } from "react";
+import { useForm } from "../../api/hooks/useForm";
 
+const Search = () => {
+  // const [formState, setFormState] = useState({});
+
+  // const updateData = (e) => {
+  //   setFormState({
+  //     ...formState,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  // const formSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(formState);
+  // };
+
+  
+
+  const { formData, handleSubmit, handleChange } = useForm()
+  console.log(formData);
+  const params = [
+    {
+      text: "Признак максимальной полноты",
+      id: 1,
+      name: "maxFullness",
+    },
+    {
+      text: "Упоминания в бизнес-контексте",
+      id: 2,
+      name: "inBusinessNews",
+    },
+    {
+      text: "Главная роль в публикации",
+      id: 3,
+      name: "onlyMainRole",
+    },
+    {
+      text: "Публикации только с риск-факторами",
+      id: 4,
+      name: "onlyWithRiskFactors",
+    },
+    {
+      text: "Включать технические новости рынков",
+      id: 5,
+      name: "excludeTechNews",
+    },
+    {
+      text: "Включать анонсы и календари",
+      id: 6,
+      name: "excludeAnnouncements",
+    },
+    {
+      text: "Включать сводки новостей",
+      id: 7,
+      name: "excludeDigests",
+    },
+  ];
 
   return (
     <section className={css.search}>
@@ -38,72 +71,93 @@ const Search = () => {
       </h2>
       <p className={css.rules}>Задайте параметры поиска. </p>
       <p className={css.rules}>Чем больше заполните, тем точнее поиск</p>
-      <form className={css.search_form}>
+      <form onSubmit={handleSubmit} className={css.search_form}>
         <div className={css.inputs}>
-          <label for="INN" className={css.labels}>
+          <label htmlFor="INN" className={css.labels}>
             ИНН компании *
           </label>
           <input
             id="INN"
             type="number"
-            name="INN"
+            name="inn"
             placeholder="10 цифр"
             min={"1000000000"}
             max={"9999999999"}
+            defaultValue="7710137066"
             required
             className={css.input}
+            onChange={handleChange}
           ></input>
-          <label for="tone" className={css.labels}>
+          <label htmlFor="tone" className={css.labels}>
             Тональность
           </label>
-          <select className={css.input}>
-            <option>Любая</option>
-            <option>ляминор</option>
-            <option>лямажор</option>
+          <select
+            name="tonality"
+            defaultValue="any"
+            onChange={handleChange}
+            className={css.input}
+          >
+            <option value="any">Любая</option>
+            <option value="any">ляминор</option>
+            <option value="any">лямажор</option>
           </select>
-          <label for="docs" className={css.labels}>
-          Количество документов в выдаче *
+          <label htmlFor="docs" className={css.labels}>
+            Количество документов в выдаче *
           </label>
           <input
             id="docs"
             type="number"
-            name="INN"
+            name="documentCount"
             placeholder="От 1 до 1000"
             min={"1"}
             max={"1000"}
+            defaultValue="1000"
+            onChange={handleChange}
             required
             className={css.input}
           ></input>
           <div className={css.date}>
-          <label for="date" className={css.labels}>
-          Диапазон поиска *
-          </label>
-          <br />
-          <input
-            id="date"
-            type="text"
-            name="INN"
-            placeholder="Дата начала"
-            required
-            className={css.date_input}
-          ></input>
-          <input
-            id="date_end"
-            type="text"
-            name="INN"
-            placeholder="Дата конца"
-            required
-            className={css.date_input}
-          ></input>
+            <label htmlFor="date" className={css.labels}>
+              Диапазон поиска *
+            </label>
+            <br />
+            <input
+              id="date"
+              type="date"
+              name="startDate"
+              placeholder="Дата начала"
+              required
+              onChange={handleChange}
+              className={css.date_input}
+            ></input>
+            <input
+              id="date_end"
+              type="date"
+              name="endDate"
+              onChange={handleChange}
+              placeholder="Дата конца"
+              required
+              className={css.date_input}
+            ></input>
           </div>
         </div>
         <div className={css.checkboxes}>
-{params.map ((i) => (<Checkbox text={i.text} id={i.id}></Checkbox>))}
-    <div className={css.search_button}><Button  text={'Поиск'}></Button></div>
-    <span>* Обязательные к заполнению поля</span>
-      </div>
+          {params.map((el) => (
+            <Checkbox
+              name={el.name}
+              handler={handleChange}
+              key={el.id}
+              text={el.text}
+              id={el.id}
+            ></Checkbox>
+          ))}
+          <div className={css.search_button}>
+            <Button text={"Поиск"}></Button>
+          </div>
+          <span>* Обязательные к заполнению поля</span>
+        </div>
       </form>
-      
+
       <div className={css.image_block}>
         <img src={folder} className={css.folder} />
         <img src={document} className={css.document} />

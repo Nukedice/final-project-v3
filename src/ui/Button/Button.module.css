@@ -2,7 +2,7 @@
     min-width: 100%;
     max-width: 350px;
     color: #fff;
-    background: #5970FF;
+    background: #5970ff;
     border-radius: 5px;
     height: 59px;
     font-weight: 500;
@@ -10,10 +10,18 @@
     line-height: 27px;
     justify-content: center;
     cursor: pointer;
-}
-.button a {
+  }
+  .button a {
     color: #fff;
-}
-.button:hover {
+  }
+  .button:hover {
     background: #5161ca;
-}
+  }
+  .disabl {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .disabl:hover::after{
+    content: " невозможно без авторизации"
+  }
+  

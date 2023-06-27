@@ -122,7 +122,9 @@ h2 {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
+.second_card {
+    background: #7CE3E1;
+}
 .second_card img {
     top: 0;
     right: 0;
@@ -130,11 +132,14 @@ h2 {
 
 .first_card {
     background: #FFB64F;
-    width: 413px;
+    width: 415px;
 }
 
 .third_card {
     background: #000000;
+}
+.third_card h3 {
+    color: #fff;
 }
 
 h3 {
@@ -143,12 +148,6 @@ h3 {
     line-height: 36px;
     letter-spacing: 0.01em;
 }
-
-.third_card h3 {
-    color: #fff;
-
-}
-
 .card_head p {
     margin-top: 10px;
     font-weight: 400;

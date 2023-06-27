@@ -75,3 +75,6 @@ margin: 0 auto 109px;
 @media (max-width:1170px) {
     
 }
+.info h2 {
+    margin-left: 0;
+}

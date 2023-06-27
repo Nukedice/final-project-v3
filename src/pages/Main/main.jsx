@@ -7,7 +7,10 @@ import Card from "../../components/Card/Card";
 import { Link } from "react-router-dom";
 import { slideItem } from "./assets/sliderItem";
 import { pricing } from "./assets/pricing";
+import  {TokenContext}  from '../../app/global/provider/tokenProvider/lib/TokenContext';
+import { useContext } from "react";
 const Main = () => {
+  const {token} = useContext(TokenContext);
   return (
     <div className={css.main}>
       <section className={css.about_us}>
@@ -18,7 +21,7 @@ const Main = () => {
             электронную почту.
           </p>
           <div className={css.but_container}>
-          <Link to='search'> <Button text={'Запросить данные'}/> </Link>
+          <Link to='search'> <Button disable={!token} text={'Запросить данные'}/> </Link>
           </div>
         </div>
         <img src={Bobby} alt="ненужная картинка" />
@@ -33,8 +36,7 @@ const Main = () => {
       <section className={css.rates}>
         <h2>Наши тарифы</h2>
         <div className={css.rate_block}>
-          {pricing.map(e => <Card {...e} color={'red'}/>)} {// color не работает
-          }
+          {pricing.map(e => <Card {...e} key={e.id}/>)} 
         </div> 
       </section>
     </div>

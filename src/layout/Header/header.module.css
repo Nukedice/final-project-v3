@@ -4,7 +4,7 @@
     justify-content: space-between;
     padding: 0 60px;
     position: relative;
-
+    transition-duration: 300ms;
 }
 
 .navigation {
@@ -26,7 +26,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .box {
@@ -105,11 +104,15 @@
         display: flex;
         background-color: #fff;
     }
+    .hidden {
+        display: none;
+    }
 }
 
 .mobile_header {
     background: #029491;
     padding: 0 60px;
+    transition-duration: 300ms;
 }
 
 

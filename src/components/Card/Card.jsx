@@ -1,9 +1,9 @@
 import css from "./Card.module.css";
 import Button from '../../ui/Button/Button'
-
-const Card = ({color, image, price, oldprice, tariff, credit, current}) => {
+const Card = ({image, price, oldprice, tariff, credit, current, className}) => {
+  const rootClassName = [css.card_head, className]
   return (<div className={css.rate_item}>
-    <div className={css.card_head} style={{backgroundColor:{color}}}>
+    <div className={rootClassName.join(" ")} >
       <h3>{tariff}</h3>
       <img src={image} />
       <p>Для небольшого исследования</p>
@@ -19,7 +19,7 @@ const Card = ({color, image, price, oldprice, tariff, credit, current}) => {
         <li>Безопасная сделка</li>
         <li>Поддержка 24/7</li>
       </ul>
-      <Button text={'Перейти'}
+      <Button text={current?'Перейти в личный кабинет' :'Перейти'}
       action={'#'} />
     </div>
   </div>)

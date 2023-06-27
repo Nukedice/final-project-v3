@@ -1,6 +1,6 @@
 import css from "./result.module.css";
 import helen from "./assets/Helen.png";
-import Slider from "../../components/Slider/Slider";
+import Historgam from "../../components/Historam/Histogram";
 import Document from "../../components/Document/document";
 import Button from "../../ui/Button/Button";
 import larry from './assets/Helen.png'
@@ -20,7 +20,7 @@ const Result = () => {
         <div className={css.summary}>
           <h3>Общая сводка</h3>
           <span>Найдено 4 221 вариантов</span>
-          <Slider></Slider>
+          <Historgam/>
         </div>
         <div className={css.image}>
           <img src={helen} />

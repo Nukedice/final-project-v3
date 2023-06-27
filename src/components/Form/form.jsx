@@ -4,16 +4,18 @@ import google from "./assets/google.png";
 import facebook from "./assets/facebook.png";
 import yandex from "./assets/yandex.png";
 import Button from "../../ui/Button/Button";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RouteLink from "../../ui/RouteLink/RouteLink";
 import Input from "../../ui/Input/Input";
+import ToggleBtn from "../../ui/ToggleBtn/ToggleBtn";
+import {useToken} from './../../app/global/provider/tokenProvider/lib/useToken'
 const Form = () => {
-  const [formState, setFormState] = useState({});
-  const [errorMsg, setErrorMsg] = useState("");
-  const [tokenData, setTokenData] = useState("");
-  const [activeBtn, setActiveBtn] = useState(false);
-  const makelogin = () => {
-    setActiveBtn(!activeBtn);
+  const [formState, setFormState] = useState({login: '', password: ''});
+  const [isLoginBtn, setIsLoginBtn] = useState(true);
+  const navigate = useNavigate();
+  const toggleLoginBtn = () => {
+      setIsLoginBtn(!isLoginBtn);
   };
   const loginHandler = (login) => {
     setFormState({ ...formState, login: login });
@@ -21,71 +23,19 @@ const Form = () => {
   const passwordHandler = (password) => {
     setFormState({ ...formState, password: password });
   };
-  const authSubmit = (authObj) => {
-    const resBody = JSON.stringify(authObj);
-    const res = fetch(
-        `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_LOGIN_ENDPOINT}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: resBody,
-      }
-    );
-    res
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          setErrorMsg(data.message);
-        }
-        if (data.accessToken) {
-            console.log(data.accessToken)
-          setTokenData(data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const { getToken, errorMsg } = useToken();
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    await getToken(formState, navigate, "/");
   };
-  useEffect(() => {
-    localStorage.setItem("token", JSON.stringify(tokenData));
-  }, [tokenData]);
- //useEffect(() => {
-   //console.log(errorMsg);
- //}, [errorMsg]);
   return (
     <form
       className={css.account_form}
-      onSubmit={(e) => {
-        e.preventDefault();
-        authSubmit(formState);
-      }}
-    >
-      <img src={lock} className={css.lock} />
+      >
+      <img src={lock} alt="lock" className={css.lock} />
       <div className={css.button_block}>
-        <button
-          className={css.button}
-          style={
-            !activeBtn
-              ? { color: "#029491", borderColor: "#029491" }
-              : { color: "#C7C7C7" }
-          }
-          onClick={() =>activeBtn ? makelogin : null}
-        >
-          Войти
-        </button>
-        <button
-          className={css.button}
-          style={
-            activeBtn
-              ? { color: "#029491", borderColor: "#029491" }
-              : { color: "#C7C7C7" }
-          }
-          onClick={() => !activeBtn ? makelogin : null}
-        >
-          Зарегистрироваться
-        </button>
+        <ToggleBtn handler={toggleLoginBtn} isLoginBtn={isLoginBtn} text='Войти' />
+        <ToggleBtn handler={toggleLoginBtn} isLoginBtn={!isLoginBtn} text='Зарегистрироваться' />
       </div>
       <Input
         text="Логин или номер телефона:"
@@ -99,9 +49,8 @@ const Form = () => {
         type="password"
         purpose="password"
         handler={passwordHandler}
-        error={errorMsg}
       />
-      <Button text={!activeBtn ? "Войти" : "Зарегистрироваться"}></Button> 
+      <Button text={isLoginBtn ? "Войти" : "Зарегистрироваться"} handler={formSubmit}></Button>
       <RouteLink path="/register" className={css.reset}>
         Восстановить пароль
       </RouteLink>

@@ -121,3 +121,8 @@
     top: 444px;
     right: 0;
 }
+@media (max-width:1450px) {
+    .image_block{
+        display: none;
+    }
+   }
