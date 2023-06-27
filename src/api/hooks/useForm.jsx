@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { TokenContext } from "../../app/global/provider/tokenProvider/lib/TokenContext";
+import { TokenContext } from "../../app/global/providers/TokenProvider/lib/TokenContext";
 import { useNavigate } from "react-router-dom";
 
 const HISTOGRAM_URL = `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_SEARCH_HISTOGRAMS}`;

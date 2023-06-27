@@ -7,7 +7,7 @@ import Card from "../../components/Card/Card";
 import { Link } from "react-router-dom";
 import { slideItem } from "./assets/sliderItem";
 import { pricing } from "./assets/pricing";
-import  {TokenContext}  from '../../app/global/provider/tokenProvider/lib/TokenContext';
+import  {TokenContext}  from '../../app/global/providers/TokenProvider/lib/TokenContext';
 import { useContext } from "react";
 const Main = () => {
   const {token} = useContext(TokenContext);

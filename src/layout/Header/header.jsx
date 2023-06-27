@@ -10,8 +10,8 @@ import  LimitsInfo  from "../../components/LimitsInfo/LimitsInfo";
 import  UserProfile  from "../../components/UserProfile/UserProfile";
 import userPhoto from "./assets/user/user.jpg"
 import css from "./header.module.css";
-import  {useToken} from "../../app/global/provider/tokenProvider/lib/useToken"
-import  {TokenContext}  from '../../app/global/provider/tokenProvider/lib/TokenContext';
+import  {useToken} from "../../app/global/providers/TokenProvider/lib/useToken"
+import  {TokenContext}  from '../../app/global/providers/TokenProvider/lib/TokenContext';
 
 const Header = () => {
   const [open, setOpen] = useState(false);

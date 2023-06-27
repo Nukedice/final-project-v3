@@ -1,8 +1,8 @@
-import './global/styles/global.module.css'
+import "./global/styles/global.css";
 import { RouterProvider } from "react-router-dom";
 import Layout from "../layout/Layout";
-import { TokenProvider } from "./global/provider/tokenProvider/"
-import { router } from "./global/provider/Router/Routes";
+import { TokenProvider } from "./global/providers/TokenProvider";
+import { router } from "./global/providers/Router/Routes";
 
 function App() {
   return (

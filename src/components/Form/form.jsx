@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import RouteLink from "../../ui/RouteLink/RouteLink";
 import Input from "../../ui/Input/Input";
 import ToggleBtn from "../../ui/ToggleBtn/ToggleBtn";
-import {useToken} from './../../app/global/provider/tokenProvider/lib/useToken'
+import {useToken} from './../../app/global/providers/TokenProvider/lib/useToken'
 const Form = () => {
   const [formState, setFormState] = useState({login: '', password: ''});
   const [isLoginBtn, setIsLoginBtn] = useState(true);
